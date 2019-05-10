@@ -5,17 +5,23 @@
   "license": "MIT",
   "keywords": [],
   "main": "src/index.js",
+	"homepage": "https://deedlefake.github.io/zero-hour-configuration-solver/",
   "devDependencies": {
     "colors.js": "1.2.4",
+    "gh-pages": "^2.0.1",
+    "prettier": "^1.17.0",
     "react": "16.8.6",
     "react-dom": "16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "rimraf": "^2.6.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "clean": "rimraf build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
