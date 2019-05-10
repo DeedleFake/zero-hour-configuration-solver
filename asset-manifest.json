@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/zero-hour-configuration-solver/static/css/main.fe54a3be.chunk.css",
+    "main.js": "/zero-hour-configuration-solver/static/js/main.79e10b75.chunk.js",
+    "main.js.map": "/zero-hour-configuration-solver/static/js/main.79e10b75.chunk.js.map",
+    "runtime~main.js": "/zero-hour-configuration-solver/static/js/runtime~main.543679c0.js",
+    "runtime~main.js.map": "/zero-hour-configuration-solver/static/js/runtime~main.543679c0.js.map",
+    "static/js/2.a47e976b.chunk.js": "/zero-hour-configuration-solver/static/js/2.a47e976b.chunk.js",
+    "static/js/2.a47e976b.chunk.js.map": "/zero-hour-configuration-solver/static/js/2.a47e976b.chunk.js.map",
+    "index.html": "/zero-hour-configuration-solver/index.html",
+    "precache-manifest.2b7597d09ec09d1a9e044dea534d46b2.js": "/zero-hour-configuration-solver/precache-manifest.2b7597d09ec09d1a9e044dea534d46b2.js",
+    "service-worker.js": "/zero-hour-configuration-solver/service-worker.js",
+    "static/css/main.fe54a3be.chunk.css.map": "/zero-hour-configuration-solver/static/css/main.fe54a3be.chunk.css.map"
+  }
+}
