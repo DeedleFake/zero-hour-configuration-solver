@@ -75,6 +75,7 @@ const App = () => {
 					<div style={{ display: 'flex', flexDirection: 'row' }}>
 						{Object.entries(configs).map(([id, { label, color }]) => (
 							<div
+								key={id}
 								style={{
 									display: 'flex',
 									justifyContent: 'center',
