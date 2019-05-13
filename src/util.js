@@ -1,3 +1,5 @@
+// @format
+
 import colors from 'colors.js'
 
 export const contrastColor = (rgb) => {

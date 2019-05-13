@@ -1,3 +1,5 @@
+// @format
+
 export const simple = {
 	void: {
 		'1-2': { color: 'red', number: 1 },

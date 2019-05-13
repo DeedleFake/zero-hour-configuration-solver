@@ -1,3 +1,5 @@
+// @format
+
 import React from 'react'
 
 const mapRange = (start, end, f) => {
