@@ -1,32 +1,44 @@
 {
-  "name": "zero-hour-configuration-solver",
-  "version": "1.0.0",
-  "description": "A visual solver for the Destiny 2 Zero Hour configuration puzzle. Based on the spread sheet produced by Math Class.",
-  "license": "MIT",
-  "keywords": [],
-  "main": "src/index.js",
-  "homepage": "https://deedlefake.github.io/zero-hour-configuration-solver/",
-  "devDependencies": {
-    "colors.js": "1.2.4",
-    "gh-pages": "^2.0.1",
-    "prettier": "^1.17.1",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-scripts": "3.0.1",
-    "rimraf": "^2.6.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "clean": "rimraf build",
-    "deploy": "gh-pages -d build"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+	"name": "zero-hour-configuration-solver",
+	"version": "1.0.0",
+	"description": "A visual solver for the Destiny 2 Zero Hour configuration puzzle. Based on the spread sheet produced by Math Class.",
+	"license": "MIT",
+	"keywords": [],
+	"main": "src/index.js",
+	"homepage": "https://deedlefake.github.io/zero-hour-configuration-solver/",
+	"devDependencies": {
+		"colors.js": "1.2.4",
+		"gh-pages": "^2.0.1",
+		"prettier": "^1.17.1",
+		"react": "16.8.6",
+		"react-dom": "16.8.6",
+		"react-scripts": "3.0.1",
+		"rimraf": "^2.6.3"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test --env=jsdom",
+		"eject": "react-scripts eject",
+		"clean": "rimraf build",
+		"deploy": "gh-pages -d build",
+		"prettier": "prettier --write package.json public/**/*.html src/**/*.js"
+	},
+	"prettier": {
+		"printWidth": 80,
+		"tabWidth": 2,
+		"useTabs": true,
+		"semi": false,
+		"singleQuote": true,
+		"trailingComma": "all",
+		"bracketSpacing": true,
+		"jsxBracketSameLine": false,
+		"arrowParens": "always"
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	]
 }
