@@ -13,7 +13,7 @@ import * as solutions from './solutions'
 
 const configs = {
 	void: { label: 'Void', color: 'purple' },
-	//arc: {label: 'Arc', color: 'lightblue'},
+	arc: { label: 'Arc', color: 'lightblue' },
 	//solar: {label: 'Solar', color: 'orange'},
 }
 
