@@ -36,7 +36,7 @@ const Wheel = ({ style, size, selected, onSelect }) => {
 							translate(${size}px, 0px)
 							rotate(-${i * 30 + 285}deg)
 						`,
-						cursor: 'pointer',
+						cursor: selected !== i ? 'pointer' : 'default',
 						backgroundColor: selected === i ? 'green' : 'grey',
 					}}
 					onClick={(ev) => {

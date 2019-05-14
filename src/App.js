@@ -97,7 +97,7 @@ const App = () => {
 									height: 50,
 									borderRadius: '100%',
 									backgroundColor: config === id ? selectedConfigColor : color,
-									cursor: 'pointer',
+									cursor: config !== id && 'pointer',
 									marginRight: 8,
 								}}
 								onClick={(ev) => {
