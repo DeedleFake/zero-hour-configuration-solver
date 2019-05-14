@@ -1,6 +1,7 @@
 // @format
 
 import React, { useReducer, useMemo, useState } from 'react'
+import { useLocalStorageState, useLocalStorageReducer } from './hooks'
 import ReactDOM from 'react-dom'
 
 import colors from 'colors.js'
@@ -25,14 +26,15 @@ const App = () => {
 		[0, 0, 0, 0],
 	)
 
-	const [config, setConfig] = useState('void')
+	const [config, setConfig] = useLocalStorageState('config', 'void')
 	const [consoleNumber, setConsoleNumber] = useState('3')
 
-	const [found, setFound] = useReducer(
-		(found, action) =>
+	const [locked, setFound] = useLocalStorageReducer(
+		'locked',
+		(locked, action) =>
 			action != null
 				? {
-						...found,
+						...locked,
 						[`${action.color}-${action.number}`]: true,
 				  }
 				: {},
@@ -176,7 +178,7 @@ const App = () => {
 					<h3>
 						Solution{' '}
 						{solution.number > 0 ? (
-							found[`${solution.color}-${solution.number}`] == null ? (
+							locked[`${solution.color}-${solution.number}`] == null ? (
 								<span style={{ color: 'green' }}>Found</span>
 							) : (
 								<span style={{ color: 'blue' }}>Previously Found</span>
@@ -188,7 +190,7 @@ const App = () => {
 					<Solution
 						color={solution.color}
 						number={solution.number}
-						found={found}
+						locked={locked}
 					/>
 
 					<Progress
@@ -196,24 +198,49 @@ const App = () => {
 							backgroundColor: 'lightgrey',
 							marginTop: 16,
 						}}
-						value={Object.keys(found).length}
+						value={Object.keys(locked).length}
 						max={49}
 					/>
 
-					<button
+					<div
 						style={{
+							display: 'flex',
+							flexDirection: 'row',
+							justifyContent: 'space-around',
 							marginTop: 16,
-							padding: 8,
-							borderRadius: 8,
-							fontSize: 16,
-							alignSelf: 'center',
 						}}
-						onClick={() =>
-							solution.number > 0 ? setFound(solution) : () => undefined
-						}
 					>
-						Mark as Found
-					</button>
+						<button
+							style={{
+								padding: 8,
+								borderRadius: 8,
+								fontSize: 16,
+								color: 'white',
+								backgroundColor: 'blue',
+							}}
+							onClick={() =>
+								solution.number > 0 ? setFound(solution) : () => undefined
+							}
+						>
+							Lock Sequence
+						</button>
+						<button
+							style={{ padding: 8, borderRadius: 8, fontSize: 16 }}
+							onClick={() => {
+								if (
+									!window.confirm(
+										'Are you sure that you want to reset the puzzle state?',
+									)
+								) {
+									return
+								}
+
+								setFound(null)
+							}}
+						>
+							Reset
+						</button>
+					</div>
 				</div>
 			</div>
 
@@ -232,8 +259,8 @@ const App = () => {
 				<p style={{ maxWidth: 600 }}>
 					As an extra convienence, clicking the <code>Mark as Found</code>{' '}
 					button below the solution will mark the current terminal as having
-					been found and, presumabely, pressed, removing it from the map and
-					showing how many terminals are left to lock.
+					been locked, removing it from the map and showing how many terminals
+					are left to lock.
 				</p>
 			</div>
 
