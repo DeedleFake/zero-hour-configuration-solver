@@ -13,7 +13,7 @@ const rows = [
 	{ justify: 'space-between', terminals: [7, 2] },
 ]
 
-const Room = ({ color, number, right, opposite }) => {
+const Room = ({ color, number, right, found }) => {
 	const contrast = useMemo(() => {
 		if (color === 'black') {
 			return '#000000'
@@ -60,8 +60,16 @@ const Room = ({ color, number, right, opposite }) => {
 								alignItems: 'center',
 								width: 20,
 								height: 20,
-								color: number === terminal ? highlightContrast : contrast,
-								backgroundColor: number === terminal ? contrast : null,
+								color:
+									found[`${color}-${terminal}`] != null
+										? color
+										: number === terminal
+										? highlightContrast
+										: contrast,
+								backgroundColor:
+									found[`${color}-${terminal}`] == null && number === terminal
+										? contrast
+										: null,
 							}}
 						>
 							{terminal}

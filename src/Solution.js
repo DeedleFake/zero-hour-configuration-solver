@@ -11,7 +11,7 @@ const rooms = [
 	['red', 'cyan'],
 ]
 
-const Solution = ({ color, number }) => {
+const Solution = ({ color, number, found }) => {
 	return (
 		<div
 			style={{
@@ -38,6 +38,7 @@ const Solution = ({ color, number }) => {
 							color={c}
 							number={color === c && number}
 							right={i > 0}
+							found={found}
 						/>
 					))}
 				</div>

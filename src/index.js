@@ -27,6 +27,14 @@ const App = () => {
 	const [config, setConfig] = useState('void')
 	const [consoleNumber, setConsoleNumber] = useState('3')
 
+	const [found, setFound] = useReducer(
+		(found, action) => ({
+			...found,
+			[`${action.color}-${action.number}`]: true,
+		}),
+		{},
+	)
+
 	const selectedConfigColor = useMemo(() => {
 		let rgb = colors.name2rgb(configs[config].color)
 		return colors.rgb2hex(
@@ -159,12 +167,35 @@ const App = () => {
 					<h3>
 						Solution{' '}
 						{solution.number > 0 ? (
-							<span style={{ color: 'green' }}>Found</span>
+							found[`${solution.color}-${solution.number}`] == null ? (
+								<span style={{ color: 'green' }}>Found</span>
+							) : (
+								<span style={{ color: 'blue' }}>Found</span>
+							)
 						) : (
 							<span style={{ color: 'red' }}>Not Found</span>
 						)}
 					</h3>
-					<Solution color={solution.color} number={solution.number} />
+					<Solution
+						color={solution.color}
+						number={solution.number}
+						found={found}
+					/>
+
+					<button
+						style={{
+							marginTop: 16,
+							padding: 8,
+							borderRadius: 8,
+							fontSize: 14,
+							alignSelf: 'center',
+						}}
+						onClick={() =>
+							solution.number > 0 ? setFound(solution) : () => undefined
+						}
+					>
+						Mark as Found
+					</button>
 				</div>
 			</div>
 
