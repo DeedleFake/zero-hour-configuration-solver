@@ -4,12 +4,16 @@ import { useState, useEffect, useReducer } from 'react'
 
 export const useLocalStorageState = (name, initial) => {
 	const [state, setState] = useState(() => {
+		let lss = localStorage.getItem(name)
 		try {
-			return JSON.parse(localStorage.getItem(name))
+			if (lss != null) {
+				return JSON.parse(lss)
+			}
 		} catch (err) {
 			console.warn(err)
-			return typeof initial === 'function' ? initial() : initial
 		}
+
+		return typeof initial === 'function' ? initial() : initial
 	})
 
 	useEffect(() => {
@@ -26,12 +30,16 @@ export const useLocalStorageReducer = (
 	initialFunc = (v) => v,
 ) => {
 	const [state, dispatch] = useReducer(reducer, null, () => {
+		let lss = localStorage.getItem(name)
 		try {
-			return initialFunc(JSON.parse(localStorage.getItem(name)))
+			if (lss != null) {
+				return initialFunc(JSON.parse(lss))
+			}
 		} catch (err) {
 			console.warn(err)
-			return initialFunc(initial)
 		}
+
+		return initialFunc(initial)
 	})
 
 	useEffect(() => {
