@@ -39,6 +39,7 @@ const Room = ({ color, number, right, locked }) => {
 				backgroundColor: color,
 				border: 'solid 2px',
 				transform: `translate(${right ? '' : '-'}2px, 0px)`,
+				cursor: 'default',
 			}}
 		>
 			<div />

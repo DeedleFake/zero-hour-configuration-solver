@@ -31,6 +31,7 @@ const Progress = ({ style, barStyle, value, max }) => {
 				padding: 0,
 				height,
 				border: `2px solid ${barColor}`,
+				cursor: 'default',
 				...style,
 			}}
 		>
