@@ -7,6 +7,7 @@ import colors from 'colors.js'
 
 import Wheel from './Wheel'
 import Solution from './Solution'
+import Progress from './Progress'
 
 import * as solutions from './solutions'
 
@@ -28,10 +29,13 @@ const App = () => {
 	const [consoleNumber, setConsoleNumber] = useState('3')
 
 	const [found, setFound] = useReducer(
-		(found, action) => ({
-			...found,
-			[`${action.color}-${action.number}`]: true,
-		}),
+		(found, action) =>
+			action != null
+				? {
+						...found,
+						[`${action.color}-${action.number}`]: true,
+				  }
+				: {},
 		{},
 	)
 
@@ -99,7 +103,12 @@ const App = () => {
 								}}
 								onClick={(ev) => {
 									ev.preventDefault()
+									if (config === id) {
+										return
+									}
+
 									setConfig(id)
+									setFound(null)
 								}}
 							>
 								<div
@@ -170,7 +179,7 @@ const App = () => {
 							found[`${solution.color}-${solution.number}`] == null ? (
 								<span style={{ color: 'green' }}>Found</span>
 							) : (
-								<span style={{ color: 'blue' }}>Found</span>
+								<span style={{ color: 'blue' }}>Previously Found</span>
 							)
 						) : (
 							<span style={{ color: 'red' }}>Not Found</span>
@@ -182,12 +191,21 @@ const App = () => {
 						found={found}
 					/>
 
+					<Progress
+						style={{
+							backgroundColor: 'lightgrey',
+							marginTop: 16,
+						}}
+						value={Object.keys(found).length}
+						max={49}
+					/>
+
 					<button
 						style={{
 							marginTop: 16,
 							padding: 8,
 							borderRadius: 8,
-							fontSize: 14,
+							fontSize: 16,
 							alignSelf: 'center',
 						}}
 						onClick={() =>
@@ -201,6 +219,7 @@ const App = () => {
 
 			<div style={{ marginTop: '4em' }}>
 				<h4>Instructions</h4>
+
 				<p style={{ maxWidth: 600 }}>
 					To use, simply click numbers on the first console corresponding to
 					those that are lit up in-game. If the console below says 'Necessary',
@@ -208,6 +227,13 @@ const App = () => {
 					up. Selecting a proper sequence will cause one of the numbers in the
 					solution to be highlighted, and this is the terminal you need to go to
 					in-game to lock the sequence.
+				</p>
+
+				<p style={{ maxWidth: 600 }}>
+					As an extra convienence, clicking the <code>Mark as Found</code>{' '}
+					button below the solution will mark the current terminal as having
+					been found and, presumabely, pressed, removing it from the map and
+					showing how many terminals are left to lock.
 				</p>
 			</div>
 
