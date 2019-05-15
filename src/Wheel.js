@@ -14,7 +14,7 @@ const polarToCart = (mag, rot) => [mag * Math.cos(rot), mag * Math.sin(rot)]
 
 const gap = 0.02
 
-const Wheel = ({ style, size, enabled, selected, onSelect }) => {
+const Wheel = ({ style, enabled, selected, onSelect }) => {
 	const en = useMemo(
 		() => (enabled != null ? enabled : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
 		[enabled],
@@ -38,8 +38,7 @@ const Wheel = ({ style, size, enabled, selected, onSelect }) => {
 			xmlns="https://www.w3.org/2000/svg"
 			viewBox="-50 -50 100 100"
 			style={{
-				width: 2 * size + 0.5 * size,
-				height: 2 * size + 0.5 * size,
+				padding: 4,
 				...style,
 			}}
 		>

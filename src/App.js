@@ -94,17 +94,22 @@ const App = () => {
 					/>
 
 					<h3>Console 1</h3>
-					<div style={{ display: 'flex', flexDirection: 'row' }}>
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'row',
+							alignItems: 'start',
+							maxWidth: 500,
+						}}
+					>
 						<Wheel
-							style={{ margin: 8 }}
-							size={65}
+							style={{ flex: '0 1 100%' }}
 							enabled={enabled[0]}
 							selected={wheels[0]}
 							onSelect={(i) => setWheels({ '0': i })}
 						/>
 						<Wheel
-							style={{ margin: 8 }}
-							size={75}
+							style={{ flex: '0 .8 100%' }}
 							enabled={enabled[1]}
 							selected={wheels[1]}
 							onSelect={(i) => setWheels({ '1': i })}
@@ -126,17 +131,22 @@ const App = () => {
 							<span style={{ color: 'red' }}>Not Necessary</span>
 						)}
 					</h3>
-					<div style={{ display: 'flex', flexDirection: 'row' }}>
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'row',
+							alignItems: 'start',
+							maxWidth: 500,
+						}}
+					>
 						<Wheel
-							style={{ margin: 8 }}
-							size={65}
+							style={{ flex: '0 1 100%' }}
 							enabled={enabled[2]}
 							selected={wheels[2]}
 							onSelect={(i) => setWheels({ '2': i })}
 						/>
 						<Wheel
-							style={{ margin: 8 }}
-							size={75}
+							style={{ flex: '0 .8 100%' }}
 							enabled={enabled[3]}
 							selected={wheels[3]}
 							onSelect={(i) => setWheels({ '3': i })}
