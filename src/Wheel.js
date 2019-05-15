@@ -1,6 +1,6 @@
 // @format
 
-import React from 'react'
+import React, { useMemo, useEffect } from 'react'
 
 const mapRange = (start, end, f) => {
 	let r = []
@@ -10,7 +10,25 @@ const mapRange = (start, end, f) => {
 	return r
 }
 
-const Wheel = ({ style, size, selected, onSelect }) => {
+const Wheel = ({ style, size, enabled, selected, onSelect }) => {
+	const en = useMemo(
+		() => (enabled != null ? enabled : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+		[enabled],
+	)
+
+	useEffect(() => {
+		if (en.includes(selected)) {
+			return
+		}
+
+		if (en.length === 1) {
+			onSelect(en[0])
+			return
+		}
+
+		onSelect(0)
+	}, [en, selected, onSelect])
+
 	return (
 		<div
 			style={{
@@ -19,7 +37,7 @@ const Wheel = ({ style, size, selected, onSelect }) => {
 				...style,
 			}}
 		>
-			{mapRange(0, 12, (i) => (
+			{mapRange(1, 13, (i) => (
 				<div
 					key={i}
 					style={{
@@ -32,19 +50,27 @@ const Wheel = ({ style, size, selected, onSelect }) => {
 						border: 'solid',
 						transform: `
 							translate(${size}px, ${size}px)
-							rotate(${i * 30 + 285}deg)
+							rotate(${(i - 1) * 30 + 285}deg)
 							translate(${size}px, 0px)
-							rotate(-${i * 30 + 285}deg)
+							rotate(-${(i - 1) * 30 + 285}deg)
 						`,
-						cursor: selected !== i ? 'pointer' : 'default',
-						backgroundColor: selected === i ? 'green' : 'grey',
+						cursor: selected !== i && en.includes(i) ? 'pointer' : 'default',
+						backgroundColor: !en.includes(i)
+							? 'grey'
+							: selected === i
+							? 'lightgreen'
+							: 'cyan',
 					}}
 					onClick={(ev) => {
 						ev.preventDefault()
+						if (!en.includes(i)) {
+							return
+						}
+
 						onSelect(i)
 					}}
 				>
-					{i + 1}
+					{i}
 				</div>
 			))}
 		</div>

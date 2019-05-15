@@ -20,13 +20,40 @@ const configs = {
 const App = () => {
 	const [wheels, setWheels] = useReducer(
 		(wheels, action) => Object.values({ ...wheels, ...action }),
-		[0, 0, 0, 0],
+		4,
+		(len) => new Array(len).fill(0),
 	)
 
 	const [config, setConfig] = useLocalStorageState('config', 'void')
 	const [consoleNumber, setConsoleNumber] = useState('3')
 
-	const [locked, setFound] = useLocalStorageReducer(
+	const enabled = useMemo(
+		() =>
+			new Array(4).fill(null).map((_, i) => {
+				if (i === 0) {
+					return null
+				}
+
+				let possible = [
+					...(i <= 1
+						? Object.keys(solutions.simple[config])
+								.map((k) => k.split('-').map((v) => parseInt(v, 10)))
+								.filter((parts) =>
+									parts.slice(0, i).every((part, i) => part === wheels[i]),
+								)
+						: []),
+					...Object.keys(solutions.secondary[config][consoleNumber])
+						.map((k) => k.split('-').map((v) => parseInt(v, 10)))
+						.filter((parts) =>
+							parts.slice(0, i).every((part, i) => part === wheels[i]),
+						),
+				]
+				return Array.from(new Set(possible.map((v) => v[i])))
+			}),
+		[config, consoleNumber, wheels],
+	)
+
+	const [locked, setLocked] = useLocalStorageReducer(
 		'locked',
 		(locked, action) =>
 			action != null
@@ -47,16 +74,15 @@ const App = () => {
 		)
 	}, [config])
 
-	const solution = useMemo(() => {
-		let w = wheels.map((v) => v + 1)
-		return (
-			solutions.simple[config][w.slice(0, 2).join('-')] ||
-			solutions.secondary[config][consoleNumber][w.join('-')] || {
+	const solution = useMemo(
+		() =>
+			solutions.simple[config][wheels.slice(0, 2).join('-')] ||
+			solutions.secondary[config][consoleNumber][wheels.join('-')] || {
 				color: 'grey',
 				number: 0,
-			}
-		)
-	}, [wheels, consoleNumber, config])
+			},
+		[wheels, consoleNumber, config],
+	)
 
 	const isSecondary = useMemo(
 		() =>
@@ -107,7 +133,7 @@ const App = () => {
 									}
 
 									setConfig(id)
-									setFound(null)
+									setLocked(null)
 								}}
 							>
 								<div
@@ -126,11 +152,13 @@ const App = () => {
 					<div style={{ display: 'flex', flexDirection: 'row' }}>
 						<Wheel
 							size={65}
+							enabled={enabled[0]}
 							selected={wheels[0]}
 							onSelect={(i) => setWheels({ '0': i })}
 						/>
 						<Wheel
 							size={75}
+							enabled={enabled[1]}
 							selected={wheels[1]}
 							onSelect={(i) => setWheels({ '1': i })}
 						/>
@@ -154,11 +182,13 @@ const App = () => {
 					<div style={{ display: 'flex', flexDirection: 'row' }}>
 						<Wheel
 							size={65}
+							enabled={enabled[2]}
 							selected={wheels[2]}
 							onSelect={(i) => setWheels({ '2': i })}
 						/>
 						<Wheel
 							size={75}
+							enabled={enabled[3]}
 							selected={wheels[3]}
 							onSelect={(i) => setWheels({ '3': i })}
 						/>
@@ -216,7 +246,7 @@ const App = () => {
 								backgroundColor: 'blue',
 							}}
 							onClick={() =>
-								solution.number > 0 ? setFound(solution) : () => undefined
+								solution.number > 0 ? setLocked(solution) : () => undefined
 							}
 						>
 							Lock Sequence
@@ -232,7 +262,7 @@ const App = () => {
 									return
 								}
 
-								setFound(null)
+								setLocked(null)
 							}}
 						>
 							Reset
