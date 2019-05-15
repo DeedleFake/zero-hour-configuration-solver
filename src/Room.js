@@ -87,7 +87,7 @@ const Room = ({ color, number, right, locked }) => {
 			>
 				<div
 					style={{
-						backgroundColor: color,
+						backgroundColor: color !== 'black' ? 'white' : 'black',
 						width: 2,
 						height: 30,
 						transform: `translate(${right ? '-' : ''}2px, 0px)`,
