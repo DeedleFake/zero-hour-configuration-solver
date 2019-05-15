@@ -216,16 +216,16 @@ const App = () => {
 								borderRadius: 8,
 								fontSize: 16,
 								color: 'white',
-								backgroundColor: 'blue',
+								backgroundColor: solution.number > 0 ? 'blue' : 'lightblue',
 							}}
-							onClick={() =>
-								solution.number > 0 ? setLocked(solution) : () => undefined
-							}
+							disabled={solution.number === 0}
+							onClick={() => setLocked(solution)}
 						>
 							Lock Sequence
 						</button>
 						<button
 							style={{ padding: 8, borderRadius: 8, fontSize: 16 }}
+							disabled={Object.keys(locked).length === 0}
 							onClick={() => {
 								if (
 									!window.confirm(
