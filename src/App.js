@@ -30,10 +30,6 @@ const App = () => {
 	const enabled = useMemo(
 		() =>
 			new Array(4).fill(null).map((_, i) => {
-				if (i === 0) {
-					return null
-				}
-
 				let possible = [
 					...(i <= 1
 						? Object.keys(solutions.simple[config])
