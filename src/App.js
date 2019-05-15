@@ -1,6 +1,6 @@
 // @format
 
-import React, { useReducer, useMemo, useState } from 'react'
+import React, { useReducer, useMemo, useState, useCallback } from 'react'
 import { useLocalStorageState, useLocalStorageReducer } from './hooks'
 
 import Config from './Config'
@@ -20,22 +20,6 @@ const App = () => {
 	const [config, setConfig] = useLocalStorageState('config', 'void')
 	const [consoleNumber, setConsoleNumber] = useState('3')
 
-	const enabled = useMemo(
-		() =>
-			new Array(4).fill(null).map((_, i) =>
-				[
-					...(i <= 1 ? Object.keys(solutions.simple[config]) : []),
-					...Object.keys(solutions.secondary[config][consoleNumber]),
-				]
-					.map((k) => k.split('-').map((v) => parseInt(v, 10)))
-					.filter((parts) =>
-						parts.slice(0, i).every((part, i) => part === wheels[i]),
-					)
-					.map((v) => v[i]),
-			),
-		[config, consoleNumber, wheels],
-	)
-
 	const [locked, setLocked] = useLocalStorageReducer(
 		'locked',
 		(locked, action) =>
@@ -46,6 +30,34 @@ const App = () => {
 				  }
 				: {},
 		{},
+	)
+
+	const isLocked = useCallback(
+		(solution) =>
+			solution != null &&
+			locked[`${solution.color}-${solution.number}`] != null,
+		[locked],
+	)
+
+	const enabled = useMemo(
+		() =>
+			new Array(4).fill(null).map((_, i) =>
+				[
+					...(i <= 1 ? Object.keys(solutions.simple[config]) : []),
+					...Object.keys(solutions.secondary[config][consoleNumber]),
+				]
+					.filter(
+						(key) =>
+							!isLocked(solutions.simple[config][key]) &&
+							!isLocked(solutions.secondary[config][consoleNumber][key]),
+					)
+					.map((k) => k.split('-').map((v) => parseInt(v, 10)))
+					.filter((parts) =>
+						parts.slice(0, i).every((part, i) => part === wheels[i]),
+					)
+					.map((v) => v[i]),
+			),
+		[config, consoleNumber, wheels, isLocked],
 	)
 
 	const solution = useMemo(
