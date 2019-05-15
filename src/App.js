@@ -29,23 +29,17 @@ const App = () => {
 
 	const enabled = useMemo(
 		() =>
-			new Array(4).fill(null).map((_, i) => {
-				let possible = [
-					...(i <= 1
-						? Object.keys(solutions.simple[config])
-								.map((k) => k.split('-').map((v) => parseInt(v, 10)))
-								.filter((parts) =>
-									parts.slice(0, i).every((part, i) => part === wheels[i]),
-								)
-						: []),
-					...Object.keys(solutions.secondary[config][consoleNumber])
-						.map((k) => k.split('-').map((v) => parseInt(v, 10)))
-						.filter((parts) =>
-							parts.slice(0, i).every((part, i) => part === wheels[i]),
-						),
+			new Array(4).fill(null).map((_, i) =>
+				[
+					...(i <= 1 ? Object.keys(solutions.simple[config]) : []),
+					...Object.keys(solutions.secondary[config][consoleNumber]),
 				]
-				return Array.from(new Set(possible.map((v) => v[i])))
-			}),
+					.map((k) => k.split('-').map((v) => parseInt(v, 10)))
+					.filter((parts) =>
+						parts.slice(0, i).every((part, i) => part === wheels[i]),
+					)
+					.map((v) => v[i]),
+			),
 		[config, consoleNumber, wheels],
 	)
 
