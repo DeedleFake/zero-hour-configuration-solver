@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useReducer } from 'react'
 
-export const useLocalStorageState = (name, initial) => {
+export const useLocalStorageState = (name, initial, convert = (v) => v) => {
 	const [state, setState] = useState(() => {
 		let lss = localStorage.getItem(name)
 		try {
 			if (lss != null) {
-				return JSON.parse(lss)
+				return convert(JSON.parse(lss))
 			}
 		} catch (err) {
 			console.warn(err)
