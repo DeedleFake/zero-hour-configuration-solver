@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/zero-hour-configuration-solver/precache-manifest.553b9cc1cfcf8d24e00bbe2bcb6f6cb4.js"
+  "/zero-hour-configuration-solver/precache-manifest.51ec614e8a1d69cd64f72a400c12986f.js"
 );
 
 self.addEventListener('message', (event) => {
