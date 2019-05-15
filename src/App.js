@@ -3,19 +3,12 @@
 import React, { useReducer, useMemo, useState } from 'react'
 import { useLocalStorageState, useLocalStorageReducer } from './hooks'
 
-import colors from 'colors.js'
-
+import Config from './Config'
 import Wheel from './Wheel'
 import Solution from './Solution'
 import Progress from './Progress'
 
 import * as solutions from './solutions'
-
-const configs = {
-	void: { label: 'Void', color: 'purple' },
-	arc: { label: 'Arc', color: 'lightblue' },
-	//solar: {label: 'Solar', color: 'orange'},
-}
 
 const App = () => {
 	const [wheels, setWheels] = useReducer(
@@ -55,15 +48,6 @@ const App = () => {
 		{},
 	)
 
-	const selectedConfigColor = useMemo(() => {
-		let rgb = colors.name2rgb(configs[config].color)
-		return colors.rgb2hex(
-			Math.max(0, rgb.R - 50),
-			Math.max(0, rgb.G - 50),
-			Math.max(0, rgb.B - 50),
-		)
-	}, [config])
-
 	const solution = useMemo(
 		() =>
 			solutions.simple[config][wheels.slice(0, 2).join('-')] ||
@@ -101,42 +85,13 @@ const App = () => {
 			>
 				<div style={{ display: 'flex', flexDirection: 'column' }}>
 					<h3>Configuration</h3>
-					<div style={{ display: 'flex', flexDirection: 'row' }}>
-						{Object.entries(configs).map(([id, { label, color }]) => (
-							<div
-								key={id}
-								style={{
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center',
-									width: 50,
-									height: 50,
-									borderRadius: '100%',
-									backgroundColor: config === id ? selectedConfigColor : color,
-									cursor: config !== id && 'pointer',
-									marginRight: 8,
-								}}
-								onClick={(ev) => {
-									ev.preventDefault()
-									if (config === id) {
-										return
-									}
-
-									setConfig(id)
-									setLocked(null)
-								}}
-							>
-								<div
-									style={{
-										width: 25,
-										height: 25,
-										borderRadius: '100%',
-										backgroundColor: color,
-									}}
-								/>
-							</div>
-						))}
-					</div>
+					<Config
+						selected={config}
+						onSelect={(id) => {
+							setConfig(id)
+							setLocked(null)
+						}}
+					/>
 
 					<h3>Console 1</h3>
 					<div style={{ display: 'flex', flexDirection: 'row' }}>
