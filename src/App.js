@@ -212,9 +212,6 @@ const App = () => {
 					>
 						<button
 							style={{
-								padding: 8,
-								borderRadius: 8,
-								fontSize: 16,
 								color: 'white',
 								backgroundColor: solution.number > 0 ? 'blue' : 'lightblue',
 							}}
@@ -224,7 +221,6 @@ const App = () => {
 							Lock Sequence
 						</button>
 						<button
-							style={{ padding: 8, borderRadius: 8, fontSize: 16 }}
 							disabled={Object.keys(locked).length === 0}
 							onClick={() => {
 								if (
