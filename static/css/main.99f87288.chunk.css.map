@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,KACC,sCACD,CAEA,OACC,WAAY,CACZ,iBAAkB,CAClB,cACD","file":"main.99f87288.chunk.css","sourcesContent":["body {\n\tfont-family: Arial, Helvetica, sans-serif;\n}\n\nbutton {\n\tpadding: 8px;\n\tborder-radius: 8px;\n\tfont-size: 16px;\n}\n"]}
