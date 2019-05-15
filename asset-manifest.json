@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/zero-hour-configuration-solver/static/css/main.50e6bab5.chunk.css",
-    "main.js": "/zero-hour-configuration-solver/static/js/main.d901c9f2.chunk.js",
-    "main.js.map": "/zero-hour-configuration-solver/static/js/main.d901c9f2.chunk.js.map",
+    "main.css": "/zero-hour-configuration-solver/static/css/main.fe54a3be.chunk.css",
+    "main.js": "/zero-hour-configuration-solver/static/js/main.f7a46558.chunk.js",
+    "main.js.map": "/zero-hour-configuration-solver/static/js/main.f7a46558.chunk.js.map",
     "runtime~main.js": "/zero-hour-configuration-solver/static/js/runtime~main.543679c0.js",
     "runtime~main.js.map": "/zero-hour-configuration-solver/static/js/runtime~main.543679c0.js.map",
-    "static/js/2.528b1e42.chunk.js": "/zero-hour-configuration-solver/static/js/2.528b1e42.chunk.js",
-    "static/js/2.528b1e42.chunk.js.map": "/zero-hour-configuration-solver/static/js/2.528b1e42.chunk.js.map",
+    "static/js/2.6e565120.chunk.js": "/zero-hour-configuration-solver/static/js/2.6e565120.chunk.js",
+    "static/js/2.6e565120.chunk.js.map": "/zero-hour-configuration-solver/static/js/2.6e565120.chunk.js.map",
     "index.html": "/zero-hour-configuration-solver/index.html",
-    "precache-manifest.51ec614e8a1d69cd64f72a400c12986f.js": "/zero-hour-configuration-solver/precache-manifest.51ec614e8a1d69cd64f72a400c12986f.js",
+    "precache-manifest.4f600a3bc101144aacf0e981a8235930.js": "/zero-hour-configuration-solver/precache-manifest.4f600a3bc101144aacf0e981a8235930.js",
     "service-worker.js": "/zero-hour-configuration-solver/service-worker.js",
-    "static/css/main.50e6bab5.chunk.css.map": "/zero-hour-configuration-solver/static/css/main.50e6bab5.chunk.css.map"
+    "static/css/main.fe54a3be.chunk.css.map": "/zero-hour-configuration-solver/static/css/main.fe54a3be.chunk.css.map"
   }
 }
