@@ -16,7 +16,10 @@ const gap = 0.02
 
 const Wheel = ({ style, enabled, selected, onSelect }) => {
 	const en = useMemo(
-		() => (enabled != null ? enabled : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+		() =>
+			Array.isArray(enabled)
+				? Array.from(new Set(enabled))
+				: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
 		[enabled],
 	)
 
