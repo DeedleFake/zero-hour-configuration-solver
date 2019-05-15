@@ -38,6 +38,7 @@ const Wheel = ({ style, enabled, selected, onSelect }) => {
 			xmlns="https://www.w3.org/2000/svg"
 			viewBox="-50 -50 100 100"
 			style={{
+				minWidth: 100,
 				padding: 4,
 				...style,
 			}}

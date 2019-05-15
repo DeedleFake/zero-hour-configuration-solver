@@ -99,6 +99,7 @@ const App = () => {
 							display: 'flex',
 							flexDirection: 'row',
 							alignItems: 'start',
+							minWidth: 300,
 							maxWidth: 500,
 						}}
 					>
@@ -136,6 +137,7 @@ const App = () => {
 							display: 'flex',
 							flexDirection: 'row',
 							alignItems: 'start',
+							minWidth: 300,
 							maxWidth: 500,
 						}}
 					>
