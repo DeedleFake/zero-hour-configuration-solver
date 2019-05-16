@@ -20,16 +20,52 @@ const App = () => {
 	const [config, setConfig] = useLocalStorageState('config', 'void')
 	const [consoleNumber, setConsoleNumber] = useState('3')
 
-	const [locked, setLocked] = useLocalStorageReducer(
+	const [locked, dispatchLocked] = useLocalStorageReducer(
 		'locked',
-		(locked, action) =>
-			action != null
-				? {
+		(locked, action) => {
+			switch (action.type) {
+				case 'add':
+					return {
 						...locked,
-						[`${action.color}-${action.number}`]: true,
-				  }
-				: {},
+						[`${action.solution.color}-${action.solution.number}`]: true,
+					}
+
+				case 'remove': {
+					let key = `${action.solution.color}-${action.solution.number}`
+					return Object.keys(locked).reduce(
+						(obj, k) => (k !== key ? { ...obj, [k]: true } : obj),
+						{},
+					)
+				}
+
+				case 'clear':
+					return {}
+
+				default:
+					throw new Error(`Unknown action type: ${action.type}`)
+			}
+		},
 		{},
+	)
+
+	const [lastLocked, dispatchLastLocked] = useLocalStorageReducer(
+		'lastLocked',
+		(lastLocked, action) => {
+			switch (action.type) {
+				case 'push':
+					return [...lastLocked, action.solution]
+
+				case 'pop':
+					return lastLocked.slice(0, lastLocked.length - 1)
+
+				case 'clear':
+					return []
+
+				default:
+					throw new Error(`Unknown action type: ${action.type}`)
+			}
+		},
+		[],
 	)
 
 	const isLocked = useCallback(
@@ -80,7 +116,7 @@ const App = () => {
 						selected={config}
 						onSelect={(id) => {
 							setConfig(id)
-							setLocked(null)
+							dispatchLocked({ type: 'clear' })
 						}}
 					/>
 
@@ -190,10 +226,27 @@ const App = () => {
 								backgroundColor: solution.number > 0 ? 'blue' : 'lightblue',
 							}}
 							disabled={solution.number === 0}
-							onClick={() => setLocked(solution)}
+							onClick={() => {
+								dispatchLocked({ type: 'add', solution })
+								dispatchLastLocked({ type: 'push', solution })
+							}}
 						>
 							Lock Sequence
 						</button>
+
+						<button
+							disabled={lastLocked == null}
+							onClick={() => {
+								dispatchLocked({
+									type: 'remove',
+									solution: lastLocked[lastLocked.length - 1],
+								})
+								dispatchLastLocked({ type: 'pop' })
+							}}
+						>
+							Undo
+						</button>
+
 						<button
 							disabled={Object.keys(locked).length === 0}
 							onClick={() => {
@@ -205,7 +258,8 @@ const App = () => {
 									return
 								}
 
-								setLocked(null)
+								dispatchLocked({ type: 'clear' })
+								dispatchLastLocked({ type: 'clear' })
 							}}
 						>
 							Reset
