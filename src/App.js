@@ -1,6 +1,6 @@
 // @format
 
-import React, { useReducer, useMemo, useState, useCallback } from 'react'
+import React, { useReducer, useMemo, useCallback } from 'react'
 import { useLocalStorageState, useLocalStorageReducer } from './hooks'
 
 import Config from './Config'
@@ -18,7 +18,10 @@ const App = () => {
 	)
 
 	const [config, setConfig] = useLocalStorageState('config', 'void')
-	const [consoleNumber, setConsoleNumber] = useState('3')
+	const [consoleNumber, setConsoleNumber] = useLocalStorageState(
+		'consoleNumber',
+		'3',
+	)
 
 	const [locked, dispatchLocked] = useLocalStorageReducer(
 		'locked',
