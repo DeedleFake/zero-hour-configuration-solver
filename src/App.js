@@ -235,7 +235,7 @@ const App = () => {
 						</button>
 
 						<button
-							disabled={lastLocked == null}
+							disabled={lastLocked.length === 0}
 							onClick={() => {
 								dispatchLocked({
 									type: 'remove',
