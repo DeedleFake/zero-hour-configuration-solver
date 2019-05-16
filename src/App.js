@@ -8,7 +8,7 @@ import Wheel from './Wheel'
 import Solution from './Solution'
 import Progress from './Progress'
 
-import * as solutions from './solutions'
+import solutions from './solutions'
 
 const App = () => {
 	const [wheels, setWheels] = useReducer(
@@ -42,15 +42,8 @@ const App = () => {
 	const enabled = useMemo(
 		() =>
 			new Array(4).fill(null).map((_, i) =>
-				[
-					...(i <= 1 ? Object.keys(solutions.simple[config]) : []),
-					...Object.keys(solutions.secondary[config][consoleNumber]),
-				]
-					.filter(
-						(key) =>
-							!isLocked(solutions.simple[config][key]) &&
-							!isLocked(solutions.secondary[config][consoleNumber][key]),
-					)
+				Object.keys(solutions[config][consoleNumber])
+					.filter((key) => !isLocked(solutions[config][consoleNumber][key]))
 					.map((k) => k.split('-').map((v) => parseInt(v, 10)))
 					.filter((parts) =>
 						parts.slice(0, i).every((part, i) => part === wheels[i]),
@@ -62,24 +55,10 @@ const App = () => {
 
 	const solution = useMemo(
 		() =>
-			solutions.simple[config][wheels.slice(0, 2).join('-')] ||
-			solutions.secondary[config][consoleNumber][wheels.join('-')] || {
+			solutions[config][consoleNumber][wheels.join('-')] || {
 				color: 'grey',
 				number: 0,
 			},
-		[wheels, consoleNumber, config],
-	)
-
-	const isSecondary = useMemo(
-		() =>
-			Object.keys(solutions.secondary[config][consoleNumber]).some((k) =>
-				k.startsWith(
-					wheels
-						.slice(0, 2)
-						.map((v) => v + 1)
-						.join('-'),
-				),
-			),
 		[wheels, consoleNumber, config],
 	)
 
@@ -137,12 +116,7 @@ const App = () => {
 						>
 							<option value={2}>2</option>
 							<option value={3}>3</option>
-						</select>{' '}
-						{isSecondary ? (
-							<span style={{ color: 'green' }}>Necessary</span>
-						) : (
-							<span style={{ color: 'red' }}>Not Necessary</span>
-						)}
+						</select>
 					</h3>
 					<div
 						style={{
