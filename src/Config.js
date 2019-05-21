@@ -7,7 +7,7 @@ import colors from 'colors.js'
 const configs = {
 	void: { label: 'Void', color: 'purple' },
 	arc: { label: 'Arc', color: 'lightblue' },
-	//solar: {label: 'Solar', color: 'orange'},
+	solar: { label: 'Solar', color: 'orange' },
 }
 
 const Config = ({ direction, selected, onSelect }) => {
