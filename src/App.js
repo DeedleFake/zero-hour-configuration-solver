@@ -1,16 +1,19 @@
 // @format
 
-import React, { useReducer, useMemo, useCallback } from 'react'
+import React, { useReducer, useMemo, useCallback, useState } from 'react'
 import { useLocalStorageState, useLocalStorageReducer } from './hooks'
 
 import Config from './Config'
 import Wheel from './Wheel'
 import Solution from './Solution'
 import Progress from './Progress'
+import Modal from './Modal'
 
 import solutions from './solutions'
 
 const App = () => {
+	const [showInstructions, setShowInstructions] = useState(false)
+
 	const [wheels, setWheels] = useReducer(
 		(wheels, action) => Object.values({ ...wheels, ...action }),
 		4,
@@ -271,25 +274,12 @@ const App = () => {
 				</div>
 			</div>
 
-			<div style={{ marginTop: '4em' }}>
-				<h4>Instructions</h4>
-
-				<p style={{ maxWidth: 600 }}>
-					To use, simply click numbers on the first console corresponding to
-					those that are lit up in-game. If the console below says 'Necessary',
-					you must also go to that console and enter the sections that are lit
-					up. Selecting a proper sequence will cause one of the numbers in the
-					solution to be highlighted, and this is the terminal you need to go to
-					in-game to lock the sequence.
-				</p>
-
-				<p style={{ maxWidth: 600 }}>
-					As an extra convienence, clicking the <code>Mark as Found</code>{' '}
-					button below the solution will mark the current terminal as having
-					been locked, removing it from the map and showing how many terminals
-					are left to lock.
-				</p>
-			</div>
+			<button
+				style={{ marginTop: '4em', alignSelf: 'start' }}
+				onClick={() => setShowInstructions(true)}
+			>
+				Show Instructions
+			</button>
 
 			<div style={{ marginTop: '4em' }}>
 				Created by DeedleFake. Inspired by{' '}
@@ -298,6 +288,25 @@ const App = () => {
 				</a>
 				.
 			</div>
+
+			<Modal open={showInstructions} onClose={() => setShowInstructions(false)}>
+				<h4>Instructions</h4>
+
+				<p style={{ maxWidth: 600 }}>
+					To use, simply click the numbers on the corresponding consoles that
+					are highlighted in game. Once enough numbers have been entered to
+					determine a solution, a terminal in one of the colored rooms will be
+					highlighted in the solution diagram. Simply go to the corresponding
+					terminal in game and lock the sequence.
+				</p>
+
+				<p style={{ maxWidth: 600 }}>
+					As an extra convienence, clicking the <code>Lock Sequence</code>{' '}
+					button below the solution will mark the current terminal as having
+					been locked, removing it from the map and removing the terminal
+					sequences for that solution from the possibilities.
+				</p>
+			</Modal>
 		</div>
 	)
 }
