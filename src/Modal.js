@@ -22,6 +22,7 @@ const Modal = ({ open, onClose, children }) => {
 				right: 0,
 
 				backgroundColor: 'rgba(100, 100, 100, .5)',
+				overflow: 'auto',
 			}}
 		>
 			<div
