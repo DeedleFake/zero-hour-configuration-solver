@@ -274,19 +274,30 @@ const App = () => {
 				</div>
 			</div>
 
-			<button
-				style={{ marginTop: '4em', alignSelf: 'start' }}
-				onClick={() => setShowInstructions(true)}
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'flex-start',
+					alignItems: 'center',
+					flexWrap: 'wrap',
+					marginTop: '4em',
+				}}
 			>
-				Show Instructions
-			</button>
+				<button
+					style={{ marginRight: '1em' }}
+					onClick={() => setShowInstructions(true)}
+				>
+					Show Instructions
+				</button>
 
-			<div style={{ marginTop: '4em' }}>
-				Created by DeedleFake. Inspired by{' '}
-				<a href="https://dm.reddit.com/r/raidsecrets/comments/bmi7fv/void_configuration_solution_solver_mobile_support/emwtklf/">
-					this comment
-				</a>
-				.
+				<div style={{ margin: '1em 0px' }}>
+					Created by DeedleFake. Inspired by{' '}
+					<a href="https://dm.reddit.com/r/raidsecrets/comments/bmi7fv/void_configuration_solution_solver_mobile_support/emwtklf/">
+						this comment
+					</a>
+					.
+				</div>
 			</div>
 
 			<Modal open={showInstructions} onClose={() => setShowInstructions(false)}>
