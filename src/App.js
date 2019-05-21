@@ -122,6 +122,14 @@ const App = () => {
 						selected={config}
 						onSelect={(id) => {
 							setConfig(id)
+
+							if (
+								Object.keys(locked).length === 0 ||
+								!window.confirm('Would you like to reset the puzzle state?')
+							) {
+								return
+							}
+
 							dispatchLocked({ type: 'clear' })
 						}}
 					/>
