@@ -11,10 +11,11 @@ const rooms = [
 	['red', 'cyan'],
 ]
 
-const Solution = ({ color, number, locked }) => {
+const Solution = ({ style = {}, color, number, locked }) => {
 	return (
 		<div
 			style={{
+				...style,
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'space-between',

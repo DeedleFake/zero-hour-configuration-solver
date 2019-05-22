@@ -236,27 +236,12 @@ const App = () => {
 							<span style={{ color: 'red', padding: 8 }}>Not Found</span>
 						)}
 					</h3>
-					<Solution
-						color={solution.color}
-						number={solution.number}
-						locked={locked}
-					/>
-
-					<Progress
-						style={{
-							backgroundColor: 'lightgrey',
-							marginTop: 16,
-						}}
-						value={Object.keys(locked).length}
-						max={49}
-					/>
 
 					<div
 						style={{
 							display: 'flex',
 							flexDirection: 'row',
 							justifyContent: 'space-around',
-							marginTop: 16,
 						}}
 					>
 						<button
@@ -304,6 +289,24 @@ const App = () => {
 							Reset
 						</button>
 					</div>
+
+					<Progress
+						style={{
+							backgroundColor: 'lightgrey',
+							marginTop: 16,
+						}}
+						value={Object.keys(locked).length}
+						max={49}
+					/>
+
+					<Solution
+						style={{
+							marginTop: 16,
+						}}
+						color={solution.color}
+						number={solution.number}
+						locked={locked}
+					/>
 				</div>
 			</div>
 
@@ -314,7 +317,7 @@ const App = () => {
 					justifyContent: 'flex-start',
 					alignItems: 'center',
 					flexWrap: 'wrap',
-					marginTop: '4em',
+					marginTop: 16,
 				}}
 			>
 				<button
