@@ -9,7 +9,18 @@ import Solution from './Solution'
 import Progress from './Progress'
 import Modal from './Modal'
 
+import colors from 'colors.js'
+
 import solutions from './solutions'
+import { contrastColor } from './util'
+
+const solutionContrasts = Object.values(solutions.void[3]).reduce(
+	(map, { color }) => ({
+		...map,
+		[color]: contrastColor(colors.name2rgb(color)),
+	}),
+	{},
+)
 
 const App = () => {
 	const [showInstructions, setShowInstructions] = useState(false)
@@ -203,12 +214,26 @@ const App = () => {
 						Solution{' '}
 						{solution.number > 0 ? (
 							locked[`${solution.color}-${solution.number}`] == null ? (
-								<span style={{ color: 'green' }}>Found</span>
+								<span
+									style={{
+										color: solution.color,
+										backgroundColor: solutionContrasts[solution.color],
+										padding: 8,
+										borderRadius: 8,
+									}}
+								>
+									{`${solution.color[0].toUpperCase()}${solution.color.substring(
+										1,
+									)}`}{' '}
+									{solution.number}
+								</span>
 							) : (
-								<span style={{ color: 'blue' }}>Previously Found</span>
+								<span style={{ color: 'blue', padding: 8 }}>
+									Previously Found
+								</span>
 							)
 						) : (
-							<span style={{ color: 'red' }}>Not Found</span>
+							<span style={{ color: 'red', padding: 8 }}>Not Found</span>
 						)}
 					</h3>
 					<Solution
