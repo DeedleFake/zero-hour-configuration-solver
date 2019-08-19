@@ -28,7 +28,7 @@ const App = () => {
 	const [wheels, setWheels] = useReducer(
 		(wheels, action) => Object.values({ ...wheels, ...action }),
 		4,
-		(len) => new Array(len).fill(0),
+		(len) => new Array(len).fill(null),
 	)
 
 	const [config, setConfig] = useLocalStorageState('config', 'void')

@@ -33,7 +33,9 @@ const Wheel = ({ style, enabled, selected, onSelect }) => {
 			return
 		}
 
-		onSelect(0)
+		if (selected != null) {
+			onSelect(null)
+		}
 	}, [en, selected, onSelect])
 
 	return (
