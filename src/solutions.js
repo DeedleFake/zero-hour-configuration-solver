@@ -251,7 +251,7 @@ export default {
 			'9-10-3-3': { color: 'purple', number: 3 },
 			'9-10-10-3': { color: 'green', number: 2 },
 			'9-10-11-11': { color: 'blue', number: 1 },
-			'9-11-2-7': { color: 'white', number: 2 },
+			'9-11-7-2': { color: 'white', number: 2 },
 			'9-11-3-10': { color: 'blue', number: 2 },
 			'10-3-8-4': { color: 'yellow', number: 3 },
 			'10-5-6-12': { color: 'cyan', number: 1 },
