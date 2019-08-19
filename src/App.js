@@ -14,8 +14,8 @@ import colors from 'colors.js'
 import solutions from './solutions'
 import { contrastColor } from './util'
 
-const solutionContrasts = Object.values(solutions.void[3]).reduce(
-	(map, { color }) => ({
+const solutionContrasts = solutions.void.reduce(
+	(map, [, { color }]) => ({
 		...map,
 		[color]: contrastColor(colors.name2rgb(color)),
 	}),
@@ -32,9 +32,24 @@ const App = () => {
 	)
 
 	const [config, setConfig] = useLocalStorageState('config', 'void')
-	const [consoleNumber, setConsoleNumber] = useLocalStorageState(
-		'consoleNumber',
-		'3',
+	const [consoleNumbers, setConsoleNumbers] = useLocalStorageReducer(
+		'consoleNumbers',
+		(numbers, action) => ({ ...numbers, ...action }),
+		[1, 2],
+	)
+
+	const chosenSolutions = useMemo(
+		() =>
+			solutions[config].reduce((sol, [k, v]) => {
+				let terms = k.split(':')
+				return {
+					...sol,
+					[`${terms[parseInt(consoleNumbers[0], 10) - 1]}-${
+						terms[parseInt(consoleNumbers[1], 10) - 1]
+					}`]: v,
+				}
+			}, {}),
+		[config, consoleNumbers],
 	)
 
 	const [locked, dispatchLocked] = useLocalStorageReducer(
@@ -95,24 +110,24 @@ const App = () => {
 	const enabled = useMemo(
 		() =>
 			new Array(4).fill(null).map((_, i) =>
-				Object.keys(solutions[config][consoleNumber])
-					.filter((key) => !isLocked(solutions[config][consoleNumber][key]))
+				Object.keys(chosenSolutions)
+					.filter((key) => !isLocked(chosenSolutions[key]))
 					.map((k) => k.split('-').map((v) => parseInt(v, 10)))
 					.filter((parts) =>
 						parts.slice(0, i).every((part, i) => part === wheels[i]),
 					)
 					.map((v) => v[i]),
 			),
-		[config, consoleNumber, wheels, isLocked],
+		[chosenSolutions, wheels, isLocked],
 	)
 
 	const solution = useMemo(
 		() =>
-			solutions[config][consoleNumber][wheels.join('-')] || {
+			chosenSolutions[wheels.join('-')] || {
 				color: 'grey',
 				number: 0,
 			},
-		[wheels, consoleNumber, config],
+		[chosenSolutions, wheels],
 	)
 
 	return (
@@ -145,7 +160,21 @@ const App = () => {
 						}}
 					/>
 
-					<h3>Console 1</h3>
+					<h3>
+						Console{' '}
+						<select
+							value={consoleNumbers[0]}
+							onChange={(ev) => setConsoleNumbers({ '0': ev.target.value })}
+						>
+							{[1, 2, 3]
+								.filter((v) => parseInt(consoleNumbers[1], 10) !== v)
+								.map((v, i) => (
+									<option key={i} value={v}>
+										{v}
+									</option>
+								))}
+						</select>
+					</h3>
 					<div
 						style={{
 							display: 'flex',
@@ -172,11 +201,16 @@ const App = () => {
 					<h3>
 						Console{' '}
 						<select
-							value={consoleNumber}
-							onChange={(ev) => setConsoleNumber(ev.target.value)}
+							value={consoleNumbers[1]}
+							onChange={(ev) => setConsoleNumbers({ '1': ev.target.value })}
 						>
-							<option value={2}>2</option>
-							<option value={3}>3</option>
+							{[1, 2, 3]
+								.filter((v) => parseInt(consoleNumbers[0], 10) !== v)
+								.map((v, i) => (
+									<option key={i} value={v}>
+										{v}
+									</option>
+								))}
 						</select>
 					</h3>
 					<div
